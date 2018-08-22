@@ -26,7 +26,7 @@
 
 // VTK includes
 #if CTK_USE_QVTKOPENGLWIDGET
-#include <QVTKOpenGLWidget.h>
+#include <QVTKOpenGLSimpleWidget.h>
 #else
 #include <QVTKWidget.h>
 #endif
@@ -150,7 +150,7 @@ public:
 
   /// Get the underlying QVTKWidget
 #if CTK_USE_QVTKOPENGLWIDGET
-  Q_INVOKABLE QVTKOpenGLWidget * VTKWidget() const;
+  Q_INVOKABLE QVTKOpenGLSimpleWidget * VTKWidget() const;
 #else
   Q_INVOKABLE QVTKWidget * VTKWidget() const;
 #endif

@@ -58,7 +58,7 @@ public:
   vtkRenderer* firstRenderer()const;
 
 #if CTK_USE_QVTKOPENGLWIDGET
-  QVTKOpenGLWidget*                             VTKWidget;
+  QVTKOpenGLSimpleWidget*                             VTKWidget;
   vtkSmartPointer<vtkGenericOpenGLRenderWindow> RenderWindow;
 #else
   QVTKWidget*                                   VTKWidget;

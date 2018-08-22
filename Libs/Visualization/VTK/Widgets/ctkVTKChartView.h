@@ -28,7 +28,7 @@ class ctkVTKChartViewPrivate;
 
 // VTK includes
 #if CTK_USE_QVTKOPENGLWIDGET
-#include <QVTKOpenGLWidget.h>
+#include <QVTKOpenGLSimpleWidget.h>
 #else
 #include <QVTKWidget.h>
 #endif
@@ -39,7 +39,7 @@ class vtkPlot;
 
 /// \ingroup Visualization_VTK_Widgets
 #if CTK_USE_QVTKOPENGLWIDGET
-class CTK_VISUALIZATION_VTK_WIDGETS_EXPORT ctkVTKChartView : public QVTKOpenGLWidget
+class CTK_VISUALIZATION_VTK_WIDGETS_EXPORT ctkVTKChartView : public QVTKOpenGLSimpleWidget
 #else
 class CTK_VISUALIZATION_VTK_WIDGETS_EXPORT ctkVTKChartView : public QVTKWidget
 #endif
@@ -50,7 +50,7 @@ class CTK_VISUALIZATION_VTK_WIDGETS_EXPORT ctkVTKChartView : public QVTKWidget
 
 public:
 #if CTK_USE_QVTKOPENGLWIDGET
-  typedef QVTKOpenGLWidget Superclass;
+  typedef QVTKOpenGLSimpleWidget Superclass;
 #else
   typedef QVTKWidget Superclass;
 #endif

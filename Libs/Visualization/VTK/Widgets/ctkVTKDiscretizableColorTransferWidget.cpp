@@ -47,7 +47,7 @@
 
 // VTK includes
 #if CTK_USE_QVTKOPENGLWIDGET
-#include <QVTKOpenGLWidget.h>
+#include <QVTKOpenGLSimpleWidget.h>
 #else
 #include <QVTKWidget.h>
 #endif
@@ -94,7 +94,7 @@ public:
   void clearUndoHistory();
 
 #if CTK_USE_QVTKOPENGLWIDGET
-  QVTKOpenGLWidget* ScalarsToColorsView;
+  QVTKOpenGLSimpleWidget* ScalarsToColorsView;
 #else
   QVTKWidget* ScalarsToColorsView;
 #endif
@@ -161,7 +161,7 @@ void ctkVTKDiscretizableColorTransferWidgetPrivate::setupUi(QWidget* widget)
   this->Ui_ctkVTKDiscretizableColorTransferWidget::setupUi(widget);
 
 #if CTK_USE_QVTKOPENGLWIDGET
-  this->ScalarsToColorsView = new QVTKOpenGLWidget;
+  this->ScalarsToColorsView = new QVTKOpenGLSimpleWidget;
 #else
   this->ScalarsToColorsView = new QVTKWidget;
 #endif

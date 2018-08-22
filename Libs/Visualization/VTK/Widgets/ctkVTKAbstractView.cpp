@@ -70,7 +70,7 @@ void ctkVTKAbstractViewPrivate::init()
   this->setParent(q);
 
 #if CTK_USE_QVTKOPENGLWIDGET
-  this->VTKWidget = new QVTKOpenGLWidget;
+  this->VTKWidget = new QVTKOpenGLSimpleWidget;
   this->VTKWidget->setEnableHiDPI(true);
   QObject::connect(this->VTKWidget, SIGNAL(resized()),
                    q, SLOT(forceRender()));
@@ -305,7 +305,7 @@ vtkCornerAnnotation* ctkVTKAbstractView::cornerAnnotation() const
 
 //----------------------------------------------------------------------------
 #if CTK_USE_QVTKOPENGLWIDGET
-QVTKOpenGLWidget * ctkVTKAbstractView::VTKWidget() const
+QVTKOpenGLSimpleWidget * ctkVTKAbstractView::VTKWidget() const
 #else
 QVTKWidget * ctkVTKAbstractView::VTKWidget() const
 #endif
