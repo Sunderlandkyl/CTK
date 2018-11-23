@@ -218,27 +218,24 @@ void ctkDICOMBrowserPrivate::showIndexerDialog()
     // by creating our own
     QLabel* progressLabel = new QLabel(q->tr("Initialization..."));
     IndexerProgress->setLabel(progressLabel);
-    IndexerProgress->setWindowModality(Qt::ApplicationModal);
+    //IndexerProgress->setWindowModality(Qt::WindowModal);
     IndexerProgress->setMinimumDuration(0);
     IndexerProgress->setValue(0);
-
-    q->connect(IndexerProgress, SIGNAL(canceled()), 
-                 DICOMIndexer.data(), SLOT(cancel()));
-
+    
     q->connect(DICOMIndexer.data(), SIGNAL(progress(int)),
             IndexerProgress, SLOT(setValue(int)));
     q->connect(DICOMIndexer.data(), SIGNAL(indexingFilePath(QString)),
             progressLabel, SLOT(setText(QString)));
     q->connect(DICOMIndexer.data(), SIGNAL(indexingFilePath(QString)),
-            q, SLOT(onFileIndexed(QString)));
+             q, SLOT(onFileIndexed(QString)));
 
     // close the dialog
     q->connect(DICOMIndexer.data(), SIGNAL(indexingComplete()),
-            IndexerProgress, SLOT(close()));
+             IndexerProgress, SLOT(close()));
     // stop indexing and reset the database if canceled
     q->connect(IndexerProgress, SIGNAL(canceled()), 
-            DICOMIndexer.data(), SLOT(cancel()));
-
+             DICOMIndexer.data(), SLOT(cancel()));
+    //
     // allow users of this widget to know that the process has finished
     q->connect(IndexerProgress, SIGNAL(canceled()), 
             q, SIGNAL(directoryImported()));
@@ -275,8 +272,9 @@ ctkDICOMBrowser::ctkDICOMBrowser(QWidget* _parent):Superclass(_parent),
   d->ToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
   //Initialize Q/R widget
-  d->QueryRetrieveWidget = new ctkDICOMQueryRetrieveWidget();
+  d->QueryRetrieveWidget = new ctkDICOMQueryRetrieveWidget(this);
   d->QueryRetrieveWidget->setWindowModality ( Qt::ApplicationModal );
+  d->QueryRetrieveWidget->setWindowFlags(Qt::Window);
 
   //initialize directory from settings, then listen for changes
   QSettings settings;
@@ -327,7 +325,7 @@ ctkDICOMBrowser::ctkDICOMBrowser(QWidget* _parent):Superclass(_parent),
         importDirectoryModeComboBox->findData(this->importDirectoryMode()));
 
   //Initialize import widget
-  d->ImportDialog = new ctkFileDialog();
+  d->ImportDialog = new ctkFileDialog(this);
   d->ImportDialog->setBottomWidget(importDirectoryBottomWidget);
   d->ImportDialog->setFileMode(QFileDialog::Directory);
   // XXX Method setSelectionMode must be called after setFileMode
@@ -335,6 +333,7 @@ ctkDICOMBrowser::ctkDICOMBrowser(QWidget* _parent):Superclass(_parent),
   d->ImportDialog->setLabelText(QFileDialog::Accept,"Import");
   d->ImportDialog->setWindowTitle("Import DICOM files from directory ...");
   d->ImportDialog->setWindowModality(Qt::ApplicationModal);
+  d->ImportDialog->setWindowFlags(Qt::Window);
 
   //connect signal and slots
   connect(d->ImportDialog, SIGNAL(filesSelected(QStringList)),
@@ -722,7 +721,7 @@ void ctkDICOMBrowser::importDirectories(QStringList directories, ctkDICOMBrowser
 
   if (d->DisplayImportSummary)
     {
-    QMessageBox::information(d->ImportDialog,"DICOM Directory Import", stats.summary());
+    //QMessageBox::information(d->ImportDialog, "DICOM Directory Import", stats.summary());
     }
 }
 
@@ -734,7 +733,7 @@ void ctkDICOMBrowser::importDirectory(QString directory, ctkDICOMBrowser::Import
   d->importDirectory(directory, mode);
   if (d->DisplayImportSummary)
     {
-    QMessageBox::information(d->ImportDialog,"DICOM Directory Import", stats.summary());
+    //QMessageBox::information(d->ImportDialog,"DICOM Directory Import", stats.summary());
     }
 }
 
