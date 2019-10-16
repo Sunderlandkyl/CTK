@@ -39,30 +39,31 @@ class CTK_VISUALIZATION_VTK_WIDGETS_EXPORT ctkVTKPiecewiseFunction: public ctkTr
   Q_OBJECT;
   QVTK_OBJECT;
 public:
+  ctkVTKPiecewiseFunction(QObject* parent = 0);
   ctkVTKPiecewiseFunction(vtkPiecewiseFunction* piecewiserFunction,
                               QObject* parent = 0);
   virtual ~ctkVTKPiecewiseFunction();
 
-  virtual ctkControlPoint* controlPoint(int index)const;
-  virtual QVariant value(qreal pos)const;
-  virtual int count()const;
-  virtual bool isDiscrete()const;
-  virtual bool isEditable()const;
+  Q_INVOKABLE virtual ctkControlPoint* controlPoint(int index)const;
+  Q_INVOKABLE virtual QVariant value(qreal pos)const;
+  Q_INVOKABLE virtual int count()const;
+  Q_INVOKABLE virtual bool isDiscrete()const;
+  Q_INVOKABLE virtual bool isEditable()const;
 
-  virtual void range(qreal& minRange, qreal& maxRange)const;
-  virtual QVariant minValue()const;
-  virtual QVariant maxValue()const;
+  Q_INVOKABLE virtual void range(qreal& minRange, qreal& maxRange)const;
+  Q_INVOKABLE virtual QVariant minValue()const;
+  Q_INVOKABLE virtual QVariant maxValue()const;
 
-  virtual int insertControlPoint(const ctkControlPoint& cp);
-  virtual int insertControlPoint(qreal pos);
+  Q_INVOKABLE virtual int insertControlPoint(const ctkControlPoint& cp);
+  Q_INVOKABLE virtual int insertControlPoint(qreal pos);
 
-  virtual void setControlPointPos(int index, qreal pos);
-  virtual void setControlPointValue(int index, const QVariant& value);
+  Q_INVOKABLE virtual void setControlPointPos(int index, qreal pos);
+  Q_INVOKABLE virtual void setControlPointValue(int index, const QVariant& value);
 
-  virtual void removeControlPoint( qreal pos );
+  Q_INVOKABLE virtual void removeControlPoint( qreal pos );
 
-  void setPiecewiseFunction(vtkPiecewiseFunction* piecewiseFunction);
-  vtkPiecewiseFunction* piecewiseFunction()const;
+  Q_INVOKABLE void setPiecewiseFunction(vtkPiecewiseFunction* piecewiseFunction);
+  Q_INVOKABLE vtkPiecewiseFunction* piecewiseFunction()const;
 protected:
   QScopedPointer<ctkVTKPiecewiseFunctionPrivate> d_ptr;
 

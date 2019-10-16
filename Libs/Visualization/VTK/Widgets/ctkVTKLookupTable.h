@@ -43,25 +43,25 @@ public:
   ctkVTKLookupTable(vtkLookupTable* lookupTable, QObject* parent = 0);
   virtual ~ctkVTKLookupTable();
   
-  virtual ctkControlPoint* controlPoint(int index)const;
-  virtual QVariant value(qreal pos)const;
-  virtual int count()const;
-  virtual bool isDiscrete()const;
-  virtual bool isEditable()const;
+  Q_INVOKABLE virtual ctkControlPoint* controlPoint(int index)const;
+  Q_INVOKABLE virtual QVariant value(qreal pos)const;
+  Q_INVOKABLE virtual int count()const;
+  Q_INVOKABLE virtual bool isDiscrete()const;
+  Q_INVOKABLE virtual bool isEditable()const;
 
-  virtual void range(qreal& minRange, qreal& maxRange)const;
-  virtual QVariant minValue()const;
-  virtual QVariant maxValue()const;
+  Q_INVOKABLE virtual void range(qreal& minRange, qreal& maxRange)const;
+  Q_INVOKABLE virtual QVariant minValue()const;
+  Q_INVOKABLE virtual QVariant maxValue()const;
 
-  virtual int insertControlPoint(const ctkControlPoint& cp);
-  virtual int insertControlPoint(qreal pos);
+  Q_INVOKABLE virtual int insertControlPoint(const ctkControlPoint& cp);
+  Q_INVOKABLE virtual int insertControlPoint(qreal pos);
 
-  virtual void setControlPointPos(int index, qreal pos);
-  virtual void setControlPointValue(int index, const QVariant& value);
+  Q_INVOKABLE virtual void setControlPointPos(int index, qreal pos);
+  Q_INVOKABLE virtual void setControlPointValue(int index, const QVariant& value);
 
-  virtual void removeControlPoint( qreal pos );
+  Q_INVOKABLE virtual void removeControlPoint( qreal pos );
 
-  void setLookupTable(vtkLookupTable* lookupTable);
+  Q_INVOKABLE void setLookupTable(vtkLookupTable* lookupTable);
   vtkLookupTable* lookupTable()const;
 protected:
   qreal indexToPos(int index)const;
