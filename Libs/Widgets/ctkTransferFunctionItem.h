@@ -63,6 +63,13 @@ public:
   QPointF screen2TransferFunctionCoordinates( qreal x, qreal y);
 */
   virtual QRectF boundingRect()const;
+
+signals:
+  // Returns the x and y of the transfer function that was clicked
+  void transferFunctionMousePressed(qreal x, qreal y);
+  void transferFunctionMouseMove(qreal x, qreal y);
+  void transferFunctionMouseReleased(qreal x, qreal y);
+
 protected:
   //qreal y(const QVariant& value)const;
   //inline qreal y(const ctkPoint& point)const;
@@ -73,6 +80,11 @@ protected:
   //QList<ctkPoint> bezierParams(ctkControlPoint* start, ctkControlPoint* end)const;
   //QList<ctkPoint> nonLinearPoints(ctkControlPoint* start, ctkControlPoint* end)const;
   virtual QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value);
+
+  void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+  void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+
 protected:
   QScopedPointer<ctkTransferFunctionItemPrivate> d_ptr;
 

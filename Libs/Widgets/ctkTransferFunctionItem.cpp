@@ -21,6 +21,7 @@
 /// Qt includes
 #include <QColor>
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 #include <QLinearGradient>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
@@ -30,6 +31,7 @@
 /// CTK includes
 #include "ctkTransferFunction.h"
 #include "ctkTransferFunctionItem.h"
+#include "ctkTransferFunctionRepresentation.h"
 #include "ctkTransferFunctionScene.h"
 
 //-----------------------------------------------------------------------------
@@ -329,4 +331,58 @@ QVariant ctkTransferFunctionItem::itemChange(QGraphicsItem::GraphicsItemChange c
             this->scene(), SLOT(update()),Qt::UniqueConnection);
     }
   return res;
+}
+
+//-----------------------------------------------------------------------------
+void ctkTransferFunctionItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+  QGraphicsObject::mousePressEvent(event);
+
+  ctkTransferFunction* tf = this->transferFunction();
+  if (tf)
+    {
+    ctkTransferFunctionRepresentation* tfRep = tf->representation();
+    Q_ASSERT(tfRep);
+    tfRep->computeCurve();
+    qreal x = tfRep->mapXFromScene(event->pos().x());
+    qreal y = tfRep->mapYFromScene(event->pos().y());
+    this->transferFunctionMousePressed(x, y);
+    event->accept();
+    } 
+}
+
+//-----------------------------------------------------------------------------
+void ctkTransferFunctionItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+  QGraphicsObject::mouseMoveEvent(event);
+
+  ctkTransferFunction* tf = this->transferFunction();
+  if (tf)
+    {
+    ctkTransferFunctionRepresentation* tfRep = tf->representation();
+    Q_ASSERT(tfRep);
+    tfRep->computeCurve();
+    qreal x = tfRep->mapXFromScene(event->pos().x());
+    qreal y = tfRep->mapYFromScene(event->pos().y());
+    this->transferFunctionMouseMove(x, y);
+    event->accept();
+    }
+}
+
+//-----------------------------------------------------------------------------
+void ctkTransferFunctionItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+  QGraphicsObject::mouseReleaseEvent(event);
+
+  ctkTransferFunction* tf = this->transferFunction();
+  if (tf)
+    {
+    ctkTransferFunctionRepresentation* tfRep = tf->representation();
+    Q_ASSERT(tfRep);
+    tfRep->computeCurve();
+    qreal x = tfRep->mapXFromScene(event->pos().x());
+    qreal y = tfRep->mapYFromScene(event->pos().y());
+    this->transferFunctionMouseReleased(x, y);
+    event->accept();
+    }
 }
