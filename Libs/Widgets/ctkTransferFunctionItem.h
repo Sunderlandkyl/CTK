@@ -66,9 +66,9 @@ public:
 
 signals:
   // Returns the x and y of the transfer function that was clicked
-  void transferFunctionMousePressed(qreal x, qreal y);
-  void transferFunctionMouseMove(qreal x, qreal y);
-  void transferFunctionMouseReleased(qreal x, qreal y);
+  void transferFunctionMousePressed(QPointF functionPos, Qt::MouseButton button);
+  void transferFunctionMouseMove(QPointF functionPos, Qt::MouseButton button);
+  void transferFunctionMouseReleased(QPointF functionPos, Qt::MouseButton button);
 
 protected:
   //qreal y(const QVariant& value)const;

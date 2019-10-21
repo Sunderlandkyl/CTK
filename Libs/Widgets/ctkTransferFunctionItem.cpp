@@ -346,7 +346,8 @@ void ctkTransferFunctionItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     tfRep->computeCurve();
     qreal x = tfRep->mapXFromScene(event->pos().x());
     qreal y = tfRep->mapYFromScene(event->pos().y());
-    this->transferFunctionMousePressed(x, y);
+    QPointF functionPosition = QPointF(x, y);
+    this->transferFunctionMousePressed(functionPosition, event->button());
     event->accept();
     } 
 }
@@ -364,7 +365,8 @@ void ctkTransferFunctionItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     tfRep->computeCurve();
     qreal x = tfRep->mapXFromScene(event->pos().x());
     qreal y = tfRep->mapYFromScene(event->pos().y());
-    this->transferFunctionMouseMove(x, y);
+    QPointF functionPosition = QPointF(x, y);
+    this->transferFunctionMouseMove(functionPosition, event->button());
     event->accept();
     }
 }
@@ -382,7 +384,8 @@ void ctkTransferFunctionItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     tfRep->computeCurve();
     qreal x = tfRep->mapXFromScene(event->pos().x());
     qreal y = tfRep->mapYFromScene(event->pos().y());
-    this->transferFunctionMouseReleased(x, y);
+    QPointF functionPosition = QPointF(x, y);
+    this->transferFunctionMouseReleased(functionPosition, event->button());
     event->accept();
     }
 }
