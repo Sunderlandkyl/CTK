@@ -186,6 +186,9 @@ protected Q_SLOTS:
   void updateCoordinates();
   void updateCoordinate(double coordinate);
 
+  void copyCoordinates();
+  void pasteCoordinates();
+
 protected:
   QScopedPointer<ctkCoordinatesWidgetPrivate> d_ptr;
 

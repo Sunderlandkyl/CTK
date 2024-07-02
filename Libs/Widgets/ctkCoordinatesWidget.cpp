@@ -19,6 +19,8 @@
 =========================================================================*/
 
 // Qt includes
+#include <QApplication>
+#include <QClipboard>
 #include <QDebug>
 #include <QDoubleSpinBox>
 #include <QHBoxLayout>
@@ -90,7 +92,7 @@ void ctkCoordinatesWidgetPrivate::addSpinBox()
   // Same number of decimals within the spinboxes.
   connect( spinBox, SIGNAL(decimalsChanged(int)),
            this, SLOT(updateOtherDecimals(int)));
-  qobject_cast<QHBoxLayout*>(q->layout())->addWidget(spinBox, 1.);
+  qobject_cast<QHBoxLayout*>(q->layout())->addWidget(spinBox, 1);
 }
 
 
@@ -301,10 +303,13 @@ void ctkCoordinatesWidget::setDimension(int dim)
     for (int i = d->Dimension - 1 ; i >= dim; --i)
       {
       QLayoutItem* item = this->layout()->takeAt(i);
-      QWidget* widget = item ? item->widget() : 0;
-      delete item;
-      delete widget;
-      d->LastUserEditedCoordinates.pop_back();
+      ctkDoubleSpinBox* widget = item ? qobject_cast<ctkDoubleSpinBox*>(item->widget()) : 0;
+      if (widget)
+        {
+        delete item;
+        delete widget;
+        d->LastUserEditedCoordinates.pop_back();
+        }
       }
     }
   delete [] d->Coordinates;
@@ -829,4 +834,18 @@ bool ctkCoordinatesWidget::hasFrame() const
 {
   Q_D(const ctkCoordinatesWidget);
   return d->Frame;
+}
+
+//-----------------------------------------------------------------------------
+void ctkCoordinatesWidget::copyCoordinates()
+{
+  Q_D(ctkCoordinatesWidget);
+  QApplication::clipboard()->setText(this->coordinatesAsString());
+}
+
+//-----------------------------------------------------------------------------
+void ctkCoordinatesWidget::pasteCoordinates()
+{
+  Q_D(ctkCoordinatesWidget);
+  this->setCoordinatesAsString(QApplication::clipboard()->text());
 }
